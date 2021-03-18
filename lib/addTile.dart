@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'base_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddTileModal extends StatefulWidget {
   @override
@@ -12,6 +14,12 @@ class AddTileModal extends StatefulWidget {
 
 
 class _AddTileModal extends State<AddTileModal> {
+
+  String tileName;
+  String tileType;
+  void addItemTile(BuildContext context,String tileName,String tileType) {
+    Provider.of<UpdatedTileList>(context, listen: false).addTile(tileName,tileType);
+  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -30,6 +38,24 @@ class _AddTileModal extends State<AddTileModal> {
               }
               return null;
             },
+        onSaved: (String value) {
+            setState(() {
+              tileName =value;
+            });
+        }
+          ),
+          TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+              onSaved: (String value) {
+                setState(() {
+                  tileType =value;
+                });
+              }
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -42,8 +68,11 @@ class _AddTileModal extends State<AddTileModal> {
                 //   ScaffoldMessenger.of(context)
                 //       .showSnackBar(SnackBar(content: Text('Processing Data')));
                 // }
+
+                addItemTile(context, tileName, tileType);
+                Navigator.pop(context);
               },
-              child: Text('Submit'),
+              child: Text('Add Tile'),
             ),
           ),
         ],

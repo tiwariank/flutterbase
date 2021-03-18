@@ -24,8 +24,8 @@ class UpdatedTileList extends ChangeNotifier{
     return tileList;
   }
 
-  addTile() async{
-    var tile = new ItemTile("name", "type");
+  addTile(String tileName,String tileType) async{
+    var tile = new ItemTile(tileName, tileType);
     tileList.add(tile);
     notifyListeners();
   }

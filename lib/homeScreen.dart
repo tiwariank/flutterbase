@@ -19,9 +19,9 @@ class _HomeScreen extends State<HomeScreen> {
 
   bool isMenuVisible = false;
 
-  void addItemTile(BuildContext context) {
-    Provider.of<UpdatedTileList>(context, listen: false).addTile();
-  }
+  // void addItemTile(BuildContext context) {
+  //   Provider.of<UpdatedTileList>(context, listen: false).addTile();
+  // }
 
   void removeItemTile(BuildContext context) {
     Provider.of<UpdatedTileList>(context, listen: false).removeTile();
@@ -31,24 +31,11 @@ class _HomeScreen extends State<HomeScreen> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: 1200,
-          color: Colors.white,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-               AddTileModal(),
-                const Text('Modal BottomSheet'),
-                ElevatedButton(
-                  child: const Text('Close BottomSheet'),
-                  onPressed: () => Navigator.pop(context),
-                )
-              ],
-            ),
-          ),
+        return SizedBox(
+          height: 800.0,
+          child: Text("hello"),
         );
+
       },
     );
   }
@@ -59,6 +46,7 @@ class _HomeScreen extends State<HomeScreen> {
       children: [
         Container(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 child: Consumer<UpdatedTileList>(
@@ -96,37 +84,12 @@ class _HomeScreen extends State<HomeScreen> {
         //   ),
         // ),
         Positioned(
-
           left: MediaQuery.of(context).size.width - 80.0,
           top:MediaQuery.of(context).size.height-300,
           height: 250.0,
           width: 300.0,
           child: Stack(
             children: <Widget>[
-              // Column(
-              //   children: <Widget>[
-              //     Visibility(
-              //       visible: isMenuVisible,
-              //       child: FloatingActionButton(onPressed: (){
-              //         addItemTile(context);
-              //       },
-              //         child: Icon(Icons.add),
-              //
-              //       ),
-              //     )
-              //     ,
-              //     Visibility(
-              //       visible: isMenuVisible,
-              //       child: FloatingActionButton(onPressed: (){
-              //         removeItemTile(context);
-              //       },
-              //         child: Icon(Icons.remove_circle_outline),
-              //       ),
-              //     )
-              //   ],
-              // )
-
-
           Positioned(
             bottom:150.0,
             child: Visibility(

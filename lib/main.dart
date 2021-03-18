@@ -5,9 +5,12 @@ import 'itemTile.dart';
 import 'homeScreen.dart';
 
 
+
 void main() {
   runApp(HomeApp());
 }
+
+
 class HomeApp extends StatelessWidget {
   // @override
   // Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class HomeApp extends StatelessWidget {
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: HomeScreen(),
+              body: Center(child: CustomDialog()),
             )
             ,
             theme: ThemeData.light(),
@@ -58,33 +61,6 @@ class HomeApp extends StatelessWidget {
 
 
 
-class MyApp1 extends StatelessWidget{
-
-  void addItemTile(BuildContext context) {
-    // Provider.of<UpdatedTileList>(context, listen: false).addTile();
-    print("hello");
-    Provider.of<UpdatedTileList>(context, listen: false).addTile();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Row(
-     children: <Widget>[
-       RaisedButton(
-         onPressed: (){
-           addItemTile(context);
-         },
-         child: Icon(Icons.add),
-       )
-
-     ],
-    );
-  }
-
-}
-
-
 
 
 class MyApp extends StatelessWidget {
@@ -107,6 +83,9 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
 
 class MyHomePage extends StatelessWidget {
   final String title;
@@ -146,3 +125,72 @@ class MyHomePage extends StatelessWidget {
 }
 
 
+class CustomDialog extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _CustomDialog();
+  }
+
+
+}
+
+class _CustomDialog extends State<CustomDialog>{
+  bool isDialogVisible = true;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Stack(
+      children: <Widget>[
+        Visibility(
+          visible: !isDialogVisible,
+          child: RaisedButton(
+            elevation: 2,
+            hoverColor: Colors.blue,
+            color:Colors.red,
+            hoverElevation: 10,
+            onPressed: null,
+            child: Container(
+              height: MediaQuery.of(context).size.height/2,
+              width: MediaQuery.of(context).size.width/2,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height/4,
+                width: MediaQuery.of(context).size.width/4,
+
+                child: Column(
+                  children: <Widget>[
+                    RaisedButton(onPressed: (){
+                      setState(() {
+                        isDialogVisible = ! isDialogVisible;
+                      });
+                    },
+                      child: Icon(Icons.filter_rounded),)
+                  ],
+                ),
+                color:Colors.amber,
+
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: isDialogVisible,
+          child: Container(
+              child:RaisedButton(onPressed: (){
+                setState(() {
+                  isDialogVisible = ! isDialogVisible;
+                });
+              },
+                child: Icon(Icons.filter_rounded),)
+          ),
+        )
+      ],
+    );
+
+  }
+
+}
